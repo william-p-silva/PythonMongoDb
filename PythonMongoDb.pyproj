@@ -22,6 +22,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="application\useCases\cadastrarJogoUseCase.py" />
+    <Compile Include="application\utils\escolhaUser.py" />
+    <Compile Include="application\utils\terminal.py" />
     <Compile Include="domain\entity\jogo.py" />
     <Compile Include="domain\entity\usuario.py" />
     <Compile Include="infrastructure\data\appDbContext.py" />
@@ -31,6 +33,7 @@
   <ItemGroup>
     <Folder Include="application\" />
     <Folder Include="application\useCases\" />
+    <Folder Include="application\utils\" />
     <Folder Include="domain\" />
     <Folder Include="domain\entity\" />
     <Folder Include="infrastructure\" />
