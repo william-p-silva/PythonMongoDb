@@ -2,7 +2,7 @@ import uuid
 
 
 class Jogo:
-    def __init__(self, titulo: str, descricao: str, usuario_id: uuid.UUID, 
+    def __init__(self, titulo: str, descricao: str, usuario_id: int, 
                  plataformas: list = None, especificacoes_user: list = None, conquistas: list = None):
 
         if not titulo.strip(): raise ValueError("Titulo inválido. ")
@@ -22,11 +22,10 @@ class Jogo:
         self.Plataformas.append(plataforma)
 
 
-    def add_conquistas(self, nome: str, raridade: str, desbloqueada: bool):
+    def add_conquistas(self, nome: str, raridade: str):
         self.Conquistas.append({
             "nome": nome,
-            "raridade": raridade,
-            "desbloqueada": desbloqueada
+            "raridade": raridade
             })
 
 

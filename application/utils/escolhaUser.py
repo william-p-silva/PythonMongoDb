@@ -1,5 +1,6 @@
 from rich import print
 from rich.prompt import Prompt
+from application.useCases.jogo.cadastrarJogoUseCase import Cadastrar_Jogo_UseCase
 from view.jogo.acoesJogoView import Jogo_Tela
 
 tela_jogo = Jogo_Tela()
@@ -29,7 +30,8 @@ class Escolhas:
         match escolha:
             case 1:
                 tela_jogo.tela_adicionar_jogo()
-                input()
+                cadastro = Cadastrar_Jogo_UseCase()
+                cadastro.execute()
             case 2:
                 tela_jogo.tela_lista_jogos()
                 input()
