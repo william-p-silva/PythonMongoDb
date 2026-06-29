@@ -1,4 +1,8 @@
 from rich import print
+from rich.prompt import Prompt
+from view.jogo.acoesJogoView import Jogo_Tela
+
+tela_jogo = Jogo_Tela()
 
 class Escolhas:
     def __init__(self):
@@ -7,8 +11,11 @@ class Escolhas:
 
 
     def capturar_escolha(self):
-        print("[yellow]Digite sua escolha: [/]", end="")
-        escolha = str(input())
+        escolha = Prompt.ask(
+            "[bold yellow]Selecione a Ação[/]",
+            choices=["1", "2", "3", "4", "5", "0"],
+            default="1",
+            )
         try:
             escolha_int = int(escolha)
             if 0 <= escolha_int <= 5:  return escolha_int
@@ -21,12 +28,17 @@ class Escolhas:
         #Chamar um view e depois na view chama o useCase
         match escolha:
             case 1:
-                print("escolha 1")
+                tela_jogo.tela_adicionar_jogo()
+                input()
             case 2:
-                print("escolha 2")
+                tela_jogo.tela_lista_jogos()
+                input()
             case 3:
-                print("escolha 3")
+                tela_jogo.tela_buscar_jogo()
+                input()
             case 4:
-                print("escolha 4")
+                tela_jogo.tela_alterar_jogo()
+                input()
             case 5:
-                print("escolha 5")
+                tela_jogo.tela_deletar_jogo()
+                input()

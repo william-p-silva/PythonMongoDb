@@ -1,3 +1,4 @@
+import time
 from rich import print
 from rich.panel import Panel
 from rich.console import Console
@@ -30,3 +31,10 @@ class Home:
                        border_style="blue",
                        expand=False)
         self.console.print(painel)
+
+    def sair(self):
+        print("[red]Saindo [/]", end='')
+        for c in range(5):
+            print(f"[red] . [/]", end='')
+            time.sleep(0.5)
+        print()

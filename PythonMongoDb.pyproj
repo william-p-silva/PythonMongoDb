@@ -21,24 +21,27 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="application\useCases\cadastrarJogoUseCase.py" />
+    <Compile Include="application\useCases\jogo\cadastrarJogoUseCase.py" />
     <Compile Include="application\utils\escolhaUser.py" />
     <Compile Include="application\utils\terminal.py" />
     <Compile Include="domain\entity\jogo.py" />
     <Compile Include="domain\entity\usuario.py" />
     <Compile Include="infrastructure\data\appDbContext.py" />
     <Compile Include="view\home.py" />
+    <Compile Include="view\jogo\acoesJogoView.py" />
     <Compile Include="__main__.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="application\" />
     <Folder Include="application\useCases\" />
+    <Folder Include="application\useCases\jogo\" />
     <Folder Include="application\utils\" />
     <Folder Include="domain\" />
     <Folder Include="domain\entity\" />
     <Folder Include="infrastructure\" />
     <Folder Include="infrastructure\data\" />
     <Folder Include="view\" />
+    <Folder Include="view\jogo\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
