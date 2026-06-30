@@ -1,15 +1,22 @@
+from time import sleep
+
 from rich import print
 from rich.prompt import Confirm, Prompt, IntPrompt
+from rich import inspect
 
 from domain.entity.jogo import Jogo
 
 class Cadastrar_Jogo_UseCase:
     def execute(self):
+        opcao = 0
         while True:
             nome = Prompt.ask("Digite o Nome do Jogo")
             if not nome.strip(): 
                 print("[red]Nome inválido. [/]")
                 continue
+            if nome == "-1": 
+                opcao = -1
+                break
 
             descricao = Prompt.ask("Digite a Descrição do Jogo")
             if not descricao.strip(): 
@@ -27,17 +34,17 @@ class Cadastrar_Jogo_UseCase:
                 c += 1
                 list_plataformas.append(plataforma)
 
-            confirma = Confirm.ask("Você Deseja Adicionar suas Conquistas")
-            if confirma:
+            confirma_conquista = Confirm.ask("Você Deseja Adicionar suas Conquistas")
+            if confirma_conquista:
                 num_conquistas = IntPrompt.ask("Quantas conquistas você gostaria de adicionar")
                 c = 0
                 list_conquista = []
                 while c < num_conquistas:
-                    nome_conquista = Prompt.ask("[yellow]Qual o Nome da Conquista [/]")
+                    nome_conquista = Prompt.ask(f"[yellow]Qual o Nome da {c}° Conquista [/]")
                     if not nome_conquista.strip():
                         print("[red]O nome da conquista é inválido. [/]")
                         continue
-                    raridade_conquista = Prompt.ask("[green]Qual a Raridade da Conquista[/]")
+                    raridade_conquista = Prompt.ask(f"[green]Qual a Raridade da {c}° Conquista[/]")
                     if not raridade_conquista.strip():
                         print("[red]Raridade inválida. ")
                         continue
@@ -45,8 +52,38 @@ class Cadastrar_Jogo_UseCase:
                     dict_conquista = {"nome": nome_conquista, "raridade": raridade_conquista}
                     list_conquista.append(dict_conquista)
                     c += 1
+            
+            confirma_especificacoes = Confirm.ask("Você desejá adicionar especificações proprias? (Exemplo horas de Jogo)")
+            if confirma_especificacoes:
+                num_especificacoes = IntPrompt.ask("Quantas especifícações você deseja adicionar")
+                c = 0
+                list_especificacoes = []
+                print("\nVocê tera de colocar o titulo e o valor da sua especificação")
+                print("Exemplo: \n\tHoras Jogadas: 555")
+                while c < num_especificacoes:
+                    titulo_especificacao = Prompt.ask(f"Qual o Título da {c}° especificação")
+                    if not titulo_especificacao.strip():
+                        print("Título inválido. ")
+                        continue
+                    valor_especificacao = Prompt.ask(f"Digite o valor da {c}° especificação")
+                    if not valor_especificacao.strip():
+                        print("Valor inválido. ")
+                        continue
+                    dict_especificacao = {"titulo": titulo_especificacao, "valor": valor_especificacao}
+                    list_especificacoes.append(dict_especificacao)
+                    c += 1
+            try:
+                jogo = Jogo(titulo=nome, descricao=descricao, usuario_id=5, plataformas=list_plataformas,
+                            conquistas=list_conquista, especificacoes_user=list_especificacoes)
+                break
+            except:
+                print("[red]Ocorreu um erro inesperado. Tente novamente[/]")
 
-
-
-            opcao = str(input())
-            if opcao == "-1" or nome == "-1": break
+        if opcao != -1:
+            input("[green]Jogo cadastrado[/]")
+        else:
+            print("[yellow]Voltando [/]", end='')
+            for c in range(5):
+                sleep(0.5)
+                print("[yellow] . [/]", end='')
+        
