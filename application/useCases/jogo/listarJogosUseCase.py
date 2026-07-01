@@ -37,8 +37,8 @@ class ListarJogos:
     
             conteudo += "\n[yellow]Especificações:[/]"
             for e, especificacao in enumerate(jogo_class.Especificacoes_User):
-                for chave, valor in especificacao.items():
-                    conteudo += f"\n\t{chave}: {valor}"
+                for chave, valores in especificacao.items():
+                    conteudo += f"\n\t{chave}: {valores}"
             painel = Panel(conteudo, title=f"{jogo_class.Titulo}", border_style="red", width=90)
             print(painel)
             

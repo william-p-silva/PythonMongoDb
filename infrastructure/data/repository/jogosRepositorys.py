@@ -11,3 +11,6 @@ class JogoRepository:
 
     def listar_jogos(self):
         return self.Collection.find()
+
+    def buscar_jogo_nome(self, nome: str):
+        return self.Collection.find_one({"nome": nome})
