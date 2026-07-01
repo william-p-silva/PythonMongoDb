@@ -7,7 +7,7 @@ from rich import print
 class ListarJogos:
     def __init__(self):
         self.jogo_repository = JogoRepository()
-        self.Lista_de_Jogos = self.jogo_repository.listar_jogos()
+        self.Lista_de_Jogos = self.jogo_repository.listar_jogos(usuario_id_sistema=6)
 
     def listar_jogos(self):
 

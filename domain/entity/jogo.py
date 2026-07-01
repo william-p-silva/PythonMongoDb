@@ -31,8 +31,7 @@ class Jogo:
 
     def add_especificacoes_user(self, titulo: str, descricao: str):
         self.Especificacoes_User.append({
-            "titulo": titulo,
-            "descricao": descricao
+            titulo: descricao
             })
 
 
