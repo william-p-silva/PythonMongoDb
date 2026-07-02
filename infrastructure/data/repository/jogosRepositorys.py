@@ -17,3 +17,6 @@ class JogoRepository:
     
     def alterar_jogo(self, jogo_id: str, jogo_atualizado: dict):
         self.Collection.update_one({"jogo_id": jogo_id}, {"$set": jogo_atualizado})
+
+    def deletar_jogo(self, jogo_id: str):
+        self.Collection.delete_one({"jogo_id": jogo_id})

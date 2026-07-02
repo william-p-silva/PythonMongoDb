@@ -5,7 +5,7 @@ from view.jogo.acoesJogoView import Jogo_Tela
 from application.useCases.jogo.listarJogosUseCase import ListarJogos
 from application.useCases.jogo.buscarJogouseCase import BuscarJogoUseCase
 from application.useCases.jogo.alterarJogoUseCase import AlterarJogoUseCase
-
+from application.useCases.jogo.deletarJogoUseCase import Deletar_Jogo
 tela_jogo = Jogo_Tela()
 
 class Escolhas:
@@ -51,4 +51,6 @@ class Escolhas:
                 input("Precione enter para continuar...")
             case 5:
                 tela_jogo.tela_deletar_jogo()
+                deletar_jogo = Deletar_Jogo()
+                deletar_jogo.execute()
                 input("Precione enter para continuar...")
