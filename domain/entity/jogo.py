@@ -2,16 +2,15 @@ import uuid
 
 
 class Jogo:
-    def __init__(self, titulo: str, descricao: str, usuario_id: int, jogo_id: str = None,
+    def __init__(self, titulo: str, descricao: str, usuario_id: int = None, jogo_id: str = None,
                  plataformas: list = None, especificacoes_user: list = None, conquistas: list = None,
                  usuario_email: str = None):
 
         if not titulo.strip(): raise ValueError("Titulo inválido. ")
         if not descricao.strip(): raise ValueError("Descrição inválida. ")
-        if usuario_id == None: raise ValueError("Id do usuário inválido. ")
 
         self.Jogo_Id = jogo_id if jogo_id is not None else uuid.uuid4()
-        self.Usuario_Id = usuario_id
+        self.Usuario_Id = usuario_id if usuario_id is not None else "Sem usuário"
         self.Titulo = titulo
         self.Descricao = descricao
         self.Plataformas = plataformas if plataformas is not None else [] 

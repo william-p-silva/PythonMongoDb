@@ -80,6 +80,7 @@ class Cadastrar_Jogo_UseCase:
                     c += 1
             try:
                 usuario_email = None
+                userID = None
                 alocar_usuario = Confirm.ask("Deseja alocar este registro a um usuário cadastrado? (y/n)")
                 while alocar_usuario:
                     email = Prompt.ask("Digite o email do usuário")
@@ -93,12 +94,16 @@ class Cadastrar_Jogo_UseCase:
                     usuario = self.usuario_repository.buscar_usuario_por_email(email)
                     if usuario:
                         usuario_email = usuario["email"]
+                        userID = usuario["id"]
                         print("[green]Usuário encontrado. Registro vinculado ao email informado.[/]")
                         break
 
                     print("[yellow]Nenhum usuário encontrado com esse email. Tente novamente ou digite -1 para cancelar a vinculação.[/]")
 
-                jogo = Jogo(titulo=nome, descricao=descricao, usuario_id=5, plataformas=list_plataformas,
+                print()
+                print(userID)
+                input()
+                jogo = Jogo(titulo=nome, descricao=descricao, usuario_id=userID, plataformas=list_plataformas,
                             conquistas=list_conquista, especificacoes_user=list_especificacoes,
                             usuario_email=usuario_email)
                 jogo_preparado = jogo.to_json()
