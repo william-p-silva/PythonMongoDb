@@ -1,14 +1,16 @@
 from time import sleep
 from infrastructure.data.repository.jogosRepositorys import JogoRepository
+from infrastructure.data.repository.usuariosRepository import UsuarioRepository
 from rich import print
 from rich.prompt import Confirm, Prompt, IntPrompt
-from rich import inspect
 
 from domain.entity.jogo import Jogo
 
 class Cadastrar_Jogo_UseCase:
     def __init__(self):
         self.jogo_repository = JogoRepository()
+        self.usuario_repository = UsuarioRepository()
+
     def execute(self):
 
         while True:
@@ -77,12 +79,32 @@ class Cadastrar_Jogo_UseCase:
                     list_especificacoes.append(dict_especificacao)
                     c += 1
             try:
+                usuario_email = None
+                alocar_usuario = Confirm.ask("Deseja alocar este registro a um usuário cadastrado? (y/n)")
+                while alocar_usuario:
+                    email = Prompt.ask("Digite o email do usuário")
+                    if email.strip() == "-1":
+                        print("[yellow]Você optou por não vincular um usuário a este jogo.[/]")
+                        break
+                    if not email.strip() or "@" not in email:
+                        print("[red]Email inválido. Tente novamente ou digite -1 para cancelar a vinculação.[/]")
+                        continue
+
+                    usuario = self.usuario_repository.buscar_usuario_por_email(email)
+                    if usuario:
+                        usuario_email = usuario["email"]
+                        print("[green]Usuário encontrado. Registro vinculado ao email informado.[/]")
+                        break
+
+                    print("[yellow]Nenhum usuário encontrado com esse email. Tente novamente ou digite -1 para cancelar a vinculação.[/]")
+
                 jogo = Jogo(titulo=nome, descricao=descricao, usuario_id=5, plataformas=list_plataformas,
-                            conquistas=list_conquista, especificacoes_user=list_especificacoes)
+                            conquistas=list_conquista, especificacoes_user=list_especificacoes,
+                            usuario_email=usuario_email)
                 jogo_preparado = jogo.to_json()
                 self.jogo_repository.cadastro_jogos(jogo_preparado)
                 break
-            except:
+            except Exception:
                 print("[red]Ocorreu um erro inesperado. Tente novamente[/]")
 
         if opcao != -1:

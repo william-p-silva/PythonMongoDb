@@ -25,6 +25,7 @@ class Home:
         conteudo += "[green][3][/] Buscar um jogo especifico: \n"
         conteudo += "[green][4][/] Alterar algum jogo: \n"
         conteudo += "[green][5][/] Deletar um jogo: \n"
+        conteudo += "[green][6][/] Gerenciar usuários: \n"
         conteudo += "[red][0][/] Sair da plataforma: [/blue]\n"
         painel = Panel(conteudo, 
                        title="[bold green]< Escolhas >[/]",

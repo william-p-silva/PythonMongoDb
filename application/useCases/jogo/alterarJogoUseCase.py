@@ -1,5 +1,6 @@
 from infrastructure.data.repository.jogosRepositorys import JogoRepository
-from rich.prompt import Prompt
+from infrastructure.data.repository.usuariosRepository import UsuarioRepository
+from rich.prompt import Prompt, Confirm
 from domain.entity.jogo import Jogo
 from view.jogo.jogo import Tela_Jogo
 from rich.panel import Panel
@@ -10,6 +11,7 @@ from time import sleep
 class AlterarJogoUseCase:
     def __init__(self):
         self.jogo_repository = JogoRepository()
+        self.usuario_repository = UsuarioRepository()
 
     def execute(self):
         terminal = Terminal()
@@ -28,10 +30,32 @@ class AlterarJogoUseCase:
                     usuario_id=jogo["usuario_id"],
                     conquistas=jogo["conquistas"],
                     especificacoes_user=jogo["especificacoes_user"],
-                    plataformas=jogo["plataformas"]
-				)
+                    plataformas=jogo["plataformas"],
+                    usuario_email=jogo.get("usuario_email")
+                )
 
                 tela_jogo.tela_jogo(jogo_class)
+
+                print()
+                if jogo_class.Usuario_Email:
+                    print(f"[blue]Email do usuário vinculado atualmente: {jogo_class.Usuario_Email}[/]")
+                else:
+                    print("[yellow]Nenhum email de usuário vinculado atualmente.[/]")
+
+                alterar_email = Confirm.ask("Deseja alterar o email do usuário vinculado?")
+                if alterar_email:
+                    while True:
+                        novo_email = Prompt.ask("Digite o novo email do usuário vinculado")
+                        if not novo_email.strip() or "@" not in novo_email:
+                            print("[red]Email inválido. Informe um email com '@'.[/]")
+                            continue
+                        usuario = self.usuario_repository.buscar_usuario_por_email(novo_email)
+                        if not usuario:
+                            print("[yellow]Nenhum usuário encontrado com esse email.[/]")
+                            continue
+                        jogo_class.Usuario_Email = usuario["email"]
+                        print("[green]Email vinculado atualizado.[/]")
+                        break
 
                 print()
                 new_titulo = Prompt.ask("Digite o novo título do jogo (ou pressione Enter para manter o atual)", default=jogo_class.Titulo)

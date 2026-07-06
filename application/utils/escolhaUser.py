@@ -6,30 +6,30 @@ from application.useCases.jogo.listarJogosUseCase import ListarJogos
 from application.useCases.jogo.buscarJogouseCase import BuscarJogoUseCase
 from application.useCases.jogo.alterarJogoUseCase import AlterarJogoUseCase
 from application.useCases.jogo.deletarJogoUseCase import Deletar_Jogo
+from application.utils.escolhaUsuario import EscolhaUsuario
+
 tela_jogo = Jogo_Tela()
 
 class Escolhas:
     def __init__(self):
         self.ListaEscolhas = [ "Sair da plataforma", "Adicionar novo jogo", "Listar todos os jogos", 
-                              "Buscar um jogo especifico", "Alterar algum jogo", "Deletar um jogo" ]
-
+                              "Buscar um jogo especifico", "Alterar algum jogo", "Deletar um jogo", "Gerenciar usuários" ]
+        self.escolha_usuario = EscolhaUsuario()
 
     def capturar_escolha(self):
         escolha = Prompt.ask(
             "[bold yellow]Selecione a Ação[/]",
-            choices=["1", "2", "3", "4", "5", "0"],
+            choices=["1", "2", "3", "4", "5", "6", "0"],
             default="1",
             )
         try:
             escolha_int = int(escolha)
-            if 0 <= escolha_int <= 5:  return escolha_int
+            if 0 <= escolha_int <= 6:  return escolha_int
             else: return -1           
         except:
             return -1
 
-
     def redirecionar_escolha(self, escolha: int):
-        #Chamar um view e depois na view chama o useCase
         match escolha:
             case 1:
                 tela_jogo.tela_adicionar_jogo()
@@ -53,4 +53,10 @@ class Escolhas:
                 tela_jogo.tela_deletar_jogo()
                 deletar_jogo = Deletar_Jogo()
                 deletar_jogo.execute()
+                input("Precione enter para continuar...")
+            case 6:
+                self.escolha_usuario.tela.tela_menu_usuario()
+                sub_escolha = self.escolha_usuario.capturar_escolha()
+                if sub_escolha != -1:
+                    self.escolha_usuario.redirecionar_escolha(sub_escolha)
                 input("Precione enter para continuar...")

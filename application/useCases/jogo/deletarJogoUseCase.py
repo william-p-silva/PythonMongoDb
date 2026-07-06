@@ -14,6 +14,10 @@ class Deletar_Jogo:
         tela_jogo = Tela_Jogo()
         while True:
             nome_jogo = Prompt.ask("[yellow]Digite o nome do jogo que deseja deletar[/]")
+            if nome_jogo == "-1":
+                print("[yellow]Operação cancelada.[/]")
+                break
+
             jogo = self.jogo_repository.buscar_jogo_nome(nome_jogo)
             if jogo:
                 jogo_class = Jogo(
@@ -23,7 +27,8 @@ class Deletar_Jogo:
                         usuario_id=jogo["usuario_id"],
                         conquistas=jogo["conquistas"],
                         especificacoes_user=jogo["especificacoes_user"],
-                        plataformas=jogo["plataformas"]
+                        plataformas=jogo["plataformas"],
+                        usuario_email=jogo.get("usuario_email")
                     )
                 tela_jogo.tela_jogo(jogo_class=jogo_class)
                 confirm = Confirm.ask("[red]Tem certeza que deseja deletar este jogo?[/]")
