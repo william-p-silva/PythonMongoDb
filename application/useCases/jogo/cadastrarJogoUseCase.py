@@ -100,9 +100,6 @@ class Cadastrar_Jogo_UseCase:
 
                     print("[yellow]Nenhum usuário encontrado com esse email. Tente novamente ou digite -1 para cancelar a vinculação.[/]")
 
-                print()
-                print(userID)
-                input()
                 jogo = Jogo(titulo=nome, descricao=descricao, usuario_id=userID, plataformas=list_plataformas,
                             conquistas=list_conquista, especificacoes_user=list_especificacoes,
                             usuario_email=usuario_email)
