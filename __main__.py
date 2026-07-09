@@ -20,15 +20,19 @@ def main():
 
     home.tela_escolhas()
     escolha_usuario = escolhas.capturar_escolha()
+
     if escolha_usuario == -1: 
         terminal.limpar_terminal()
         print("[black on red]Escolha inválida. [/]")
-        return
+
+        return    
     else:
         terminal.limpar_terminal()
         print(f"\n[green]Você escolheu [yellow][{escolha_usuario}][/yellow] {escolhas.ListaEscolhas[escolha_usuario]}[/]")
+
     if escolha_usuario == 0:
         home.sair()
+    
         return True
 
     print()
@@ -37,7 +41,10 @@ def main():
 
 control = 0
 if __name__ == "__main__":
+
     while True:
+
         parar = main()
-        if parar:
+
+        if parar:            
             break
